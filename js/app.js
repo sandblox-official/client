@@ -1,23 +1,27 @@
-const MOVE = "move";
-const MESSAGE = "message";
-const MESSAGE = "kick";
-const handleUpdates =(e)=> {
-    jsonData = JSON.parse(e.data)
-    switch(jsonData.method) {
-        case MOVE: 
-        //process movement
-        break;
-        case MESSAGE:
-            //add message
-        break;
-        case KICK:
-            conn.close()
-            break;
-        default: 
-        conn.close();
-    }
-}
+var conn;
 window.onload =()=> {
-    let conn = connect(globalWorld)
-    conn.onmessage = handleUpdates(e);
+    conn = new WebSocket("ws://localhost:8082/"+globalWorld)
+
+    conn.onmessage =(e)=>{
+        eJSON = JSON.parse(e.data)
+        switch (eJSON.method){
+            case "message":
+                console.log(eJSON.data.chat)
+                document.getElementsByClassName("chat")[0].innerHTML += "<b>"+eJSON.data.chat.from+":</b> "+eJSON.data.chat.body+"<br>";
+                break;
+        }
+    }
+    document.getElementsByClassName("submit-chat")[0].addEventListener("click", ()=>{
+        conn.send(
+            `{
+                "method": "message",
+                "data" : {
+                    "chat" : 
+                    {
+                        "from": "generic",
+                        "body" : "`+document.getElementsByClassName("chat-entry")[0].value+`"
+                    }
+                }
+            }`
+    )})
 }
