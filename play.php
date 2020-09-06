@@ -13,15 +13,22 @@
             top: 0;
             right: 0;
             width: 400px;
-            height: 100%;
+            height: calc(100% - 20px);
             overflow-y: auto;
             background-color: rgb(80,80,80);
             margin-bottom: 30px;
             color: white;
-            padding-top: 10px;
+            display: flex;
+            flex-direction: column-reverse;
         }
-        .chat-container * {margin: 10px; margin-top: 0;
-        margin-bottom: 20px;}
+        .chat-container * {
+            margin: 10px; margin-top: 0;
+            margin-bottom: 4px;
+            overflow-anchor: none;
+        }
+         body div.chat-container:first-child{
+            margin-bottom: 20px;
+        }
         .submit-chat {
             position: absolute;
             bottom: 0;
@@ -31,7 +38,7 @@
             padding: 0;
             margin: 0;
             border: 0;
-            background-color: transparent;
+            background-color: rgb(80,80,80);
             color: white;
         }
         .chat-entry{
@@ -51,7 +58,9 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat"></div>
+        <div class="chat">
+            <div class="anchor"></div>
+        </div>
     </div>
     <button class="submit-chat">Send</button>
     <input type="text" class="chat-entry">

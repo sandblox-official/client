@@ -23,5 +23,9 @@ window.onload =()=> {
                     }
                 }
             }`
-    )})
+        )
+        var element = document.getElementsByClassName("chat")[0];
+        function scrollToBottom(element) {
+            e.scrollTop = e.scrollHeight - e.getBoundingClientRect().height;
+          }    })
 }
