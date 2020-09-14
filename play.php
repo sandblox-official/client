@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script> var globalWorld = '<?=$_GET["world"]?>';</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sandblox - <?= $_GET["world"]?></title>
-    <script src="js/socket_connection.js"></script>
-    <script src="js/app.js"></script>
-    <script> var globalWorld = '<?=$_GET["world"]?>'</script>
     <style>
+
         .chat-container{
             position: fixed;
             top: 0;
@@ -57,6 +56,7 @@
     </style>
 </head>
 <body>
+    <canvas></canvas>
     <div class="chat-container">
         <div class="chat">
             <div class="anchor"></div>
@@ -65,4 +65,15 @@
     <button class="submit-chat">Send</button>
     <input type="text" class="chat-entry">
 </body>
+<script src="https://cdn.babylonjs.com/babylon.max.js"></script>
+<script>
+    <?php
+        require_once(__DIR__."/util/api_call.php");
+        $resultJSON = callAPI("GET", "http://localhost:8080/worlds/".$_GET["world"], "");
+        $result = json_decode($resultJSON);
+        echo("var createScene =()=>{".$result->js."}");
+    ?>
+        
+    </script>
+    <script src="js/app.js"></script>
 </html>
